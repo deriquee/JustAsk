@@ -2,7 +2,8 @@ import 'home.dart';
 import 'package:flutter/material.dart';
 import 'package:chat_gh/services/api_services.dart';
 import 'register.dart';
-import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:chat_gh/services/g_auth.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LogIn extends StatefulWidget {
   @override
@@ -112,22 +113,35 @@ class _LogInState extends State<LogIn> {
                     child: Text('Register with email'),
                   ),
                 ),
-                // SizedBox(height: 15.0),
-                // Container(
-                //   width: MediaQuery.of(context).size.width / 1.4,
-                //   height: 45.0,
-                //   decoration: BoxDecoration(
-                //     borderRadius: BorderRadius.all(Radius.circular(16)),
-                //     color: Colors.redAccent,
-                //   ),
-                //   child: MaterialButton(
-                //     onPressed: () {},
-                //     child: Text(
-                //       'Login with Google',
-                //       style: TextStyle(color: Colors.white),
-                //     ),
-                //   ),
-                // ),
+                SizedBox(height: 15.0),
+                Container(
+                  width: MediaQuery.of(context).size.width / 1.4,
+                  height: 45.0,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(16)),
+                    color: Colors.redAccent,
+                  ),
+                  child: MaterialButton(
+                    onPressed: () async {
+                      await gsignin(context);
+                      SharedPreferences prefs =
+                          await SharedPreferences.getInstance();
+                      var token = prefs.getString('g_token');
+                      print('token:$token');
+                      bool isTrue = await googleLogin(token);
+                      if (isTrue == true) {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => HomeScreen()));
+                      }
+                    },
+                    child: Text(
+                      'Login with Google',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),

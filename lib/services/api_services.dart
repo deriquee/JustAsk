@@ -7,6 +7,7 @@ import 'package:chat_gh/models/all_posts.dart';
 import 'package:chat_gh/models/selected_post.dart';
 import 'package:chat_gh/models/comments_model.dart';
 import 'package:chat_gh/models/search_model.dart';
+import 'package:chat_gh/services/g_auth.dart';
 
 Future login<bool>(String email, String pw) async {
   String url = "justask2k20dev.herokuapp.com";
@@ -18,6 +19,32 @@ Future login<bool>(String email, String pw) async {
         },
         body: jsonEncode(<String, String>{'email': email, 'password': pw}));
     var data = response.body;
+
+    print(jsonDecode(data)['key']);
+    SharedPreferences token_login = await SharedPreferences.getInstance();
+    token_login.setString('token_login', jsonDecode(data)['key']);
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      return true;
+    } else {
+      return false;
+    }
+  } catch (e) {
+    print(e);
+  }
+}
+
+Future googleLogin<bool>(String accesstoken) async {
+  print('called');
+  String url = "justask2k20dev.herokuapp.com";
+  try {
+    http.Response response = await http.post(
+        Uri.https(url, '/rest-auth/google/'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8'
+        },
+        body: jsonEncode(<String, String>{'access_token': accesstoken}));
+    var data = response.body;
+    print(data);
 
     print(jsonDecode(data)['key']);
     SharedPreferences token_login = await SharedPreferences.getInstance();
