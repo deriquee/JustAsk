@@ -71,14 +71,14 @@ Widget buildPosts(AsyncSnapshot<SelectedPost> snapshot) {
                           'Posted on ${snapshot.data.timestamp.day}-${snapshot.data.timestamp.month}-${snapshot.data.timestamp.year}',
                           style: TextStyle(
                             fontSize: 15,
-                            color: Colors.black,
+                            color: Colors.blue.shade700,
                           ),
                         ),
                         Text(
                           'By ${snapshot.data.getUsername}',
                           style: TextStyle(
                             fontSize: 15,
-                            color: Colors.black,
+                            color: Colors.blue.shade700,
                           ),
                         ),
                       ],
@@ -88,7 +88,7 @@ Widget buildPosts(AsyncSnapshot<SelectedPost> snapshot) {
                       'Tags:  ${snapshot.data.tags}',
                       style: TextStyle(
                         fontSize: 15,
-                        color: Colors.black,
+                        color: Colors.blue.shade700,
                       ),
                     ),
                     SizedBox(
@@ -107,7 +107,8 @@ Widget buildPosts(AsyncSnapshot<SelectedPost> snapshot) {
                     Row(
                       children: [
                         //Icon(Icons.arrow_upward),
-                        Text('${snapshot.data.likecount.toString()} votes'),
+                        Text('${snapshot.data.likecount.toString()} votes',
+                            style: TextStyle(color: Colors.blue.shade700)),
                         SizedBox(
                           width: 25,
                         ),
@@ -137,10 +138,10 @@ Widget buildPosts(AsyncSnapshot<SelectedPost> snapshot) {
                           fontWeight: FontWeight.bold),
                     ),
                     SizedBox(
-                      height: 25,
+                      height: 1,
                     ),
                     Container(
-                      height: 100,
+                      height: 300,
                       child: FutureBuilder(
                         future: comments(snapshot.data.id),
                         builder: (context, snapshot) {
@@ -237,12 +238,16 @@ Widget buildComments(AsyncSnapshot<List<Comment>> snapshot) {
             Row(
               children: [
                 //Icon(Icons.arrow_upward),
-                Text('${snapshot.data[index].commentlike.toString()} votes'),
+                Text(
+                  '${snapshot.data[index].commentlike.toString()} votes',
+                  style: TextStyle(color: Colors.blue.shade700),
+                ),
                 //Icon(Icons.arrow_downward),
                 SizedBox(
                   width: 100,
                 ),
-                Text('By ${snapshot.data[index].getUsername}')
+                Text('By ${snapshot.data[index].getUsername}',
+                    style: TextStyle(color: Colors.blue.shade700))
               ],
             ),
           ],

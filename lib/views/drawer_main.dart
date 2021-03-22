@@ -29,13 +29,14 @@ class _MainDrawerState extends State<MainDrawer> {
                       itemBuilder: (BuildContext context, int index) {
                         return Column(
                           children: [
-                            Image.network(
-                              'https://justask2k20dev.herokuapp.com${snapshot.data.getProimage}',
-                              width: 100,
-                              height: 75,
+                            CircleAvatar(
+                              radius: 50,
+                              backgroundImage: NetworkImage(
+                                'https://justask2k20dev.herokuapp.com${snapshot.data.getProimage}',
+                              ),
                             ),
                             SizedBox(
-                              height: 10,
+                              height: 5,
                             ),
                             Text(
                               snapshot.data.getProname,

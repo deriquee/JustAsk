@@ -47,7 +47,6 @@ class _ChatScreenState extends State<ChatScreen> {
         "imgUrl": myProfilePic
       };
 
-      //messageId
       if (messageId == "") {
         messageId = randomAlphaNumeric(12);
       }
@@ -64,9 +63,8 @@ class _ChatScreenState extends State<ChatScreen> {
         DatabaseMethods().updateLastMessageSend(chatRoomId, lastMessageInfoMap);
 
         if (sendClicked) {
-          // remove the text in the message input field
           messageTextEdittingController.text = "";
-          // make message id blank to get regenerated on next message send
+
           messageId = "";
         }
       });
@@ -157,9 +155,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     Expanded(
                         child: TextField(
                       controller: messageTextEdittingController,
-                      onChanged: (value) {
-                        addMessage(false);
-                      },
+                      onChanged: (value) {},
                       style: TextStyle(color: Colors.white),
                       decoration: InputDecoration(
                           border: InputBorder.none,
